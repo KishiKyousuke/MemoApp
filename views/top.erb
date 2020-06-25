@@ -1,12 +1,10 @@
-<body>
-  <input type="button" value="追加" onClick="location.href='/new-memo'">
-  <% require "json"%>
-  <% File.open("public/json/storehouse.json") do |j|%>
-    <%$json_str = JSON.load(j)%>
-  <%end%>
-  <ul>
-  <%$json_str["memos"].each do |memo|%>
-    <li><a href="/<%=memo["id"]%>"><%= memo["title"] %></a></li>
-  <%end%>
-  </ul>
-</body>
+<% require "json"%>
+<% File.open("public/json/storehouse.json") do |j|%>
+  <%$json_str = JSON.load(j)%>
+<%end%>
+<ul>
+<%$json_str["memos"].each do |memo|%>
+  <li><a href="/<%=memo["id"]%>"><%= memo["title"] %></a></li>
+<%end%>
+</ul>
+<input type="button" value="追加" onClick="location.href='/new-memo'">

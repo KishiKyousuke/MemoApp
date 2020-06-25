@@ -1,0 +1,49 @@
+body {
+background-color:#afeeee;
+}
+
+h1 {
+font-size: 50px;
+text-align: center;
+}
+
+.container{
+text-align:center;
+margin:50px 100px;
+padding:100px;
+background-color: white;
+box-shadow: rgba(0, 0, 0, .4) 0 0 8px;
+}
+
+
+ul {
+text-align: center
+}
+
+li {
+list-style:none;
+font-size: 30px;
+}
+
+a {
+text-decoration: none;
+}
+
+input{
+  width :120px;
+  display: inline-block;
+  margin:auto;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  background: #668ad8;/*ボタン色*/
+  color: #FFF;
+  border-bottom: solid 4px #627295;
+  border-radius: 3px;
+}
+input:active {
+  /*ボタンを押したとき*/
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);/*下に動く*/
+  border-bottom: none;/*線を消す*/
+}
+
