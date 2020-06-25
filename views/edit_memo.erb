@@ -1,0 +1,11 @@
+<body>
+  <% File.open("public/json/storehouse.json") do |j|%>
+    <%$json_str = JSON.load(j)%>
+  <%end%>
+  <%$memo_detail = $json_str["memos"].find{|memo| memo["id"] == @id.to_i}%>
+  <form action="/<%=@id%>" method="post">
+    <textarea name="text" cols="30" rows="10"><%=$memo_detail["title"]%><%=$memo_detail["content"]%></textarea>
+    <input type="hidden" name="_method" value="patch">
+    <input type="submit" value="変更">
+  </form>
+</body>
