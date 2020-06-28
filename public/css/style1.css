@@ -21,6 +21,12 @@ border-bottom:solid 2px #c0c0c0;
 margin:0 300px;
 }
 
+p.memo-content{
+margin-top: -3px;
+font-size: 20px;
+white-space:pre-line;
+}
+
 li {
 list-style:none;
 list-style-position:inside;

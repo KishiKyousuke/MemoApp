@@ -4,8 +4,8 @@
     <%$json_str = JSON.load(j)%>
   <%end%>
   <%$memo_detail = $json_str["memos"].find{|memo| memo["id"] == @id.to_i}%>
-  <pre><%=$memo_detail["title"]%></pre>
-  <pre><%=$memo_detail["content"]%></pre>
+  <h2><%=$memo_detail["title"]%></h2>
+  <p class="memo-content"><%=$memo_detail["content"]%></p>
   <form action="/<%= $memo_detail["id"]%>/edit" method="get">
     <input type="submit" value="変更">
   </form>
