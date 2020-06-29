@@ -1,15 +1,10 @@
 <body>
-  <% require "json"%>
-  <% File.open("public/json/storehouse.json") do |j|%>
-    <%$json_str = JSON.load(j)%>
-  <%end%>
-  <%$memo_detail = $json_str["memos"].find{|memo| memo["id"] == @id.to_i}%>
-  <h2><%=$memo_detail["title"]%></h2>
-  <p class="memo-content"><%=$memo_detail["content"]%></p>
-  <form action="/<%= $memo_detail["id"]%>/edit" method="get">
+  <h2><%=@selected_memo["title"]%></h2>
+  <p class="memo-content"><%=@selected_memo["content"]%></p>
+  <form action="/<%= @selected_memo["id"]%>/edit" method="get">
     <input type="submit" value="変更">
   </form>
-  <form action="/<%= $memo_detail["id"]%>" method="post">
+  <form action="/<%= @selected_memo["id"]%>" method="post">
     <input type="hidden" name="_method" value="delete">
     <input type="submit" value="削除">
   </form>

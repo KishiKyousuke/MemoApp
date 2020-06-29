@@ -1,41 +1,18 @@
 require "sinatra"
 require "sinatra/reloader"
 require "json"
+require "./common_class/memo"
 
 get "/" do
-  @title = "メモアプリ"
+  @title = "Memo App"
+  storage_location_path = "./public/json/storehouse.json"
+  @hash = Memo.read(storage_location_path)
   erb :top
 end
 
 get "/new-memo" do
   @title = "New memo"
   erb :newmemo
-end
-
-class Memo
-  attr_reader :page
-  def initialize(id:, title:, content:)
-    @page = { id: id, title: title, content: content }
-  end
-
-  class << self
-    def read(path)
-      file = File.read(path)
-      JSON.load("#{file}")
-    end
-
-    def throw_away(hash, id)
-      hash["memos"].delete_if { |memo| memo["id"] == id }
-    end
-  end
-
-  def add(hash, path)
-    hash["memos"] ||= []
-    hash["memos"].push(page)
-    File.open("#{path}", "w") do |file|
-      JSON.dump(hash, file)
-    end
-  end
 end
 
 post "/new-memo" do
@@ -52,12 +29,18 @@ end
 get "/:id" do
   @title = "show memo"
   @id = params[:id]
+  storage_location_path = "./public/json/storehouse.json"
+  hash = Memo.read(storage_location_path)
+  @selected_memo = Memo.select(hash, @id.to_i)
   erb :show_memo
 end
 
 get "/:id/edit" do
   @title = "Edit memo"
   @id = params[:id]
+  storage_location_path = "./public/json/storehouse.json"
+  hash = Memo.read(storage_location_path)
+  @selected_memo = Memo.select(hash, @id.to_i)
   erb :edit_memo
 end
 
