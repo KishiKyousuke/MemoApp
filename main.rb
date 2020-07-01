@@ -9,7 +9,7 @@ config = {
   dbname: "memo_app"
 }
 
-connection = PG::connect(config)
+connection = PG.connect(config)
 
 get "/" do
   @title = "Memo App"
@@ -55,6 +55,6 @@ end
 
 delete "/:id" do
   @id = params[:id]
-  Memo.throw_away(connection,@id.to_i)
+  Memo.throw_away(connection, @id.to_i)
   redirect to ("/")
 end

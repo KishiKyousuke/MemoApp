@@ -1,5 +1,5 @@
 class Memo
-  attr_reader :title, :content, :connection
+  attr_reader :title, :content
   def initialize(title:, content:)
     @title = title
     @content = content
@@ -10,21 +10,22 @@ class Memo
       connection.exec("SELECT * FROM memos")
     end
 
-    def select(connection,id)
+    def select(connection, id)
       connection.exec("SELECT * FROM memos WHERE id = #{id}")
     end
 
-    def throw_away(connection,id)
+    def throw_away(connection, id)
       connection.exec("DELETE FROM memos WHERE id = #{id}")
     end
   end
 
   def add(connection)
-    connection.exec("INSERT INTO memos (title,content) VALUES ('#{title}', '#{content}')")
+    sql = "INSERT INTO memos (title,content) VALUES ($1, $2)"
+    connection.exec(sql, [title, content])
   end
 
-  def edit(connection,id)
-    connection.exec("UPDATE memos SET title='#{title}', content='#{content}' WHERE id = #{id}")
+  def edit(connection, id)
+    sql = "UPDATE memos SET title=$1, content=$2 WHERE id = $3"
+    connection.exec(sql, [title, content, id])
   end
 end
-
