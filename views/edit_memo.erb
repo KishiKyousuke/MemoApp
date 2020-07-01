@@ -1,7 +1,9 @@
 <body>
-  <form action="/<%=@id%>" method="post">
-    <textarea name="text" cols="30" rows="10"><%=@selected_memo["title"]%><%=@selected_memo["content"]%></textarea>
-    <input type="hidden" name="_method" value="patch">
-    <input type="submit" value="変更">
-  </form>
+  <%@selected_memo.each do |memo|%>
+    <form action="/<%=@id%>" method="post">
+      <textarea name="text" cols="30" rows="10"><%=memo["title"]%><%=memo["content"]%></textarea>
+      <input type="hidden" name="_method" value="patch">
+      <input type="submit" value="変更">
+    </form>
+  <%end%>
 </body>
