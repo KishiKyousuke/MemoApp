@@ -1,11 +1,13 @@
 <body>
-  <h2><%=@selected_memo["title"]%></h2>
-  <p class="memo-content"><%=@selected_memo["content"]%></p>
-  <form action="/<%= @selected_memo["id"]%>/edit" method="get">
-    <input type="submit" value="変更">
-  </form>
-  <form action="/<%= @selected_memo["id"]%>" method="post">
-    <input type="hidden" name="_method" value="delete">
-    <input type="submit" value="削除">
-  </form>
+  <%@selected_memo.each do |memo| %>
+    <h2><%=memo["title"]%></h2>
+    <p class="memo-content"><%=memo["content"]%></p>
+    <form action="/<%= memo["id"]%>/edit" method="get">
+      <input type="submit" value="変更">
+    </form>
+    <form action="/<%= memo["id"]%>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input type="submit" value="削除">
+    </form>
+  <%end%>
 </body>
