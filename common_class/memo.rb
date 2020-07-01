@@ -11,11 +11,13 @@ class Memo
     end
 
     def select(connection, id)
-      connection.exec("SELECT * FROM memos WHERE id = #{id}")
+      sql = "SELECT * FROM memos WHERE id = $1"
+      connection.exec(sql, [id])
     end
 
     def throw_away(connection, id)
-      connection.exec("DELETE FROM memos WHERE id = #{id}")
+      sql = "DELETE FROM memos WHERE id = $1"
+      connection.exec(sql, [id])
     end
   end
 
