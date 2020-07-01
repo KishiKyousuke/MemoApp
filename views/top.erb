@@ -1,7 +1,7 @@
 <h2>MemoList</h2>
 <ul>
-<%@hash["memos"].each do |memo|%>
-  <li><a href="/<%=memo["id"]%>"><%= memo["title"] %></a></li>
+<%@memos.each do |memo|%>
+  <li><a href="/<%=memo["id"]%>"><%=memo["title"]%></a></li>
 <%end%>
 </ul>
 <input type="button" value="追加" onClick="location.href='/new-memo'">

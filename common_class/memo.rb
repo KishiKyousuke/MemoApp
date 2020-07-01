@@ -1,29 +1,30 @@
 class Memo
-  attr_reader :page
-  def initialize(id:, title:, content:)
-    @page = { id: id, title: title, content: content }
+  attr_reader :title, :content, :connection
+  def initialize(title:, content:)
+    @title = title
+    @content = content
   end
 
   class << self
-    def read(path)
-      file = File.read(path)
-      JSON.load("#{file}")
+    def read(connection)
+      connection.exec("SELECT * FROM memos")
     end
 
-    def select(hash, id)
-      hash["memos"].find { |memo| memo["id"] == id }
+    def select(connection,id)
+      connection.exec("SELECT * FROM memos WHERE id = #{id}")
     end
 
-    def throw_away(hash, id)
-      hash["memos"].delete_if { |memo| memo["id"] == id }
+    def throw_away(connection,id)
+      connection.exec("DELETE FROM memos WHERE id = #{id}")
     end
   end
 
-  def add(hash, path)
-    hash["memos"] ||= []
-    hash["memos"].push(page)
-    File.open("#{path}", "w") do |file|
-      JSON.dump(hash, file)
-    end
+  def add(connection)
+    connection.exec("INSERT INTO memos (title,content) VALUES ('#{title}', '#{content}')")
+  end
+
+  def edit(connection,id)
+    connection.exec("UPDATE memos SET title='#{title}', content='#{content}' WHERE id = #{id}")
   end
 end
+
